@@ -85,7 +85,7 @@ a {
 `;
 export const Container = styled.div`
     width: 100%;
-    height: 300vh;
+    height: fit-content;
     border: 4px solid crimson;
     background-color: ${(props) => props.theme.bgColor};
 `;

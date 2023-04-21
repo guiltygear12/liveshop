@@ -12,6 +12,7 @@ const HeaderWrapper = styled.header`
     justify-content: space-between;
     padding: 4px 16px;
     position: absolute;
+    z-index: 100;
     top: 0;
     left: 50%;
     transform: translateX(-50%);
@@ -24,6 +25,7 @@ const Logo = styled.h1`
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 `;
 const HeaderRight = styled.div`
     display: flex;
@@ -40,14 +42,17 @@ const Btn = styled.button`
 function Header() {
     const navigate = useNavigate();
     const onLoginbtn = () => {
-        navigate("/login");
+        navigate("/Login");
     };
     const onJoinbtn = () => {
-        navigate("/Join");
+        navigate("/Register");
+    };
+    const onHome = () => {
+        navigate("/");
     };
     return (
         <HeaderWrapper>
-            <Logo>로고 위치</Logo>
+            <Logo onClick={onHome}>로고 위치</Logo>
             <HeaderRight>
                 <Btn onClick={onLoginbtn}>로그인</Btn>
                 <Btn onClick={onJoinbtn}>회원가입</Btn>

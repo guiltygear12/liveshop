@@ -7,15 +7,21 @@ import { lightTheme } from "./theme";
 import { RouterProvider } from "react-router-dom";
 import Root from "./Root";
 import router from "./Router";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { RecoilRoot } from "recoil";
+
+const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement
 );
 root.render(
-    <React.StrictMode>
-        <ThemeProvider theme={lightTheme}>
-            <GlobalStyle />
-            <RouterProvider router={router} />
-        </ThemeProvider>
-    </React.StrictMode>
+    <ThemeProvider theme={lightTheme}>
+        <QueryClientProvider client={queryClient}>
+            <RecoilRoot>
+                <GlobalStyle />
+                <RouterProvider router={router} />
+            </RecoilRoot>
+        </QueryClientProvider>
+    </ThemeProvider>
 );

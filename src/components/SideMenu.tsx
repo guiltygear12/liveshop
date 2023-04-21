@@ -3,15 +3,16 @@ import { useState } from "react";
 import styled from "styled-components";
 
 const SideMenuWrapper = styled.aside`
-    height: 100vh;
+    height: 80vh;
     width: 100%;
     max-width: 300px;
     border: 1px solid black;
     position: fixed;
-    top: 0;
+    top: 80px;
     right: -300px;
     padding: 80px 8px 0;
     transition: all 0.3s;
+    z-index: 10;
     &.active {
         right: 0;
     }
@@ -128,7 +129,7 @@ const SubMenuItemVariants = {
     },
 };
 function SideMenu() {
-    const [showing, setShowing] = useState(true);
+    const [showing, setShowing] = useState(false);
     const [menuIndex, setMenuIndex] = useState(0);
     return (
         <SideMenuWrapper className={showing === true ? "active" : ""}>
@@ -138,7 +139,7 @@ function SideMenu() {
                     className={menuIndex === 1 ? "active" : ""}
                     onClick={() => setMenuIndex(1)}
                 >
-                    TopMenu1
+                    카테고리
                     <AnimatePresence>
                         {menuIndex === 1 ? (
                             <SubMenuContainer
@@ -148,13 +149,16 @@ function SideMenu() {
                                 exit="leaving"
                             >
                                 <SubMenu variants={SubMenuItemVariants}>
-                                    BottomMenu1-1
+                                    전자제품
                                 </SubMenu>
                                 <SubMenu variants={SubMenuItemVariants}>
-                                    BottomMenu1-2
+                                    악세서리
                                 </SubMenu>
                                 <SubMenu variants={SubMenuItemVariants}>
-                                    BottomMenu1-3
+                                    남성의류
+                                </SubMenu>
+                                <SubMenu variants={SubMenuItemVariants}>
+                                    여성의류
                                 </SubMenu>
                             </SubMenuContainer>
                         ) : null}
@@ -164,7 +168,7 @@ function SideMenu() {
                     className={menuIndex === 2 ? "active" : ""}
                     onClick={() => setMenuIndex(2)}
                 >
-                    TopMenu2
+                    마이페이지
                     <AnimatePresence>
                         {menuIndex === 2 ? (
                             <SubMenuContainer
@@ -174,13 +178,13 @@ function SideMenu() {
                                 exit="leaving"
                             >
                                 <SubMenu variants={SubMenuItemVariants}>
-                                    BottomMenu2-1
+                                    내 정보
                                 </SubMenu>
                                 <SubMenu variants={SubMenuItemVariants}>
-                                    BottomMenu2-2
+                                    찜 목록
                                 </SubMenu>
                                 <SubMenu variants={SubMenuItemVariants}>
-                                    BottomMenu2-3
+                                    장바구니
                                 </SubMenu>
                             </SubMenuContainer>
                         ) : null}
@@ -190,13 +194,27 @@ function SideMenu() {
                     className={menuIndex === 3 ? "active" : ""}
                     onClick={() => setMenuIndex(3)}
                 >
-                    TopMenu3
-                </MainMenu>
-                <MainMenu
-                    className={menuIndex === 4 ? "active" : ""}
-                    onClick={() => setMenuIndex(4)}
-                >
-                    TopMenu4
+                    게시판
+                    <AnimatePresence>
+                        {menuIndex === 3 ? (
+                            <SubMenuContainer
+                                variants={SubMenuVariants}
+                                initial="initial"
+                                animate="visible"
+                                exit="leaving"
+                            >
+                                <SubMenu variants={SubMenuItemVariants}>
+                                    공지사항
+                                </SubMenu>
+                                <SubMenu variants={SubMenuItemVariants}>
+                                    FAQ
+                                </SubMenu>
+                                <SubMenu variants={SubMenuItemVariants}>
+                                    1:1문의
+                                </SubMenu>
+                            </SubMenuContainer>
+                        ) : null}
+                    </AnimatePresence>
                 </MainMenu>
             </SideMenuContainer>
             <SideMenuToggle
