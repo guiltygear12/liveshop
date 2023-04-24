@@ -14,6 +14,13 @@
 -   React-Query (23.04.20 추가)
 -   React-Hook-Form (23.04.20 추가)
 
+### 참고
+
+-   배보 링크: https://guiltygear12.github.io/ (갱신일: 2023.04.18)
+-   사용된 Api: https://fakestoreapi.com/
+-   사용된 Api 문서: https://fakestoreapi.com/docs
+-   Api 테스트 아이디/비밀번호 : "mor_2314" / "83r5^\_"
+
 ### 계획
 
 -   메인페이지
