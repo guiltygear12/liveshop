@@ -11,13 +11,13 @@
 -   react-router-dom (6.4)
 -   styled-components
 -   recoil
+-   React-Query (23.04.20 추가)
+-   React-Hook-Form (23.04.20 추가)
 
 ### 기획의도
 
 -   최근 TS+REACT 관련 강의를 마치고 거기에서 배운것을 활용하기위해
     FAKE SHOP API를 활용하여 쇼핑몰을 만들게 되었습니다.
-
-디자인은 네이버의 LINE 디자인 시스템을 참고하여 디자인 하였습니다
 
 ### 계획
 
