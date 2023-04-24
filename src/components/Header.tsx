@@ -11,11 +11,12 @@ const HeaderWrapper = styled.header`
     align-items: center;
     justify-content: space-between;
     padding: 4px 16px;
-    position: absolute;
+    position: fixed;
     z-index: 100;
     top: 0;
     left: 50%;
     transform: translateX(-50%);
+    background-color: #fff;
 `;
 const Logo = styled.h1`
     width: 120px;
@@ -26,6 +27,12 @@ const Logo = styled.h1`
     justify-content: center;
     align-items: center;
     cursor: pointer;
+`;
+const HeaderLeft = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
 `;
 const HeaderRight = styled.div`
     display: flex;
@@ -47,12 +54,22 @@ function Header() {
     const onJoinbtn = () => {
         navigate("/Register");
     };
+    const onProducts = () => {
+        navigate("/Products");
+    };
+    const onMyPage = () => {
+        navigate("/MyPage");
+    };
     const onHome = () => {
         navigate("/");
     };
     return (
         <HeaderWrapper>
-            <Logo onClick={onHome}>로고 위치</Logo>
+            <HeaderLeft>
+                <Logo onClick={onHome}>로고 위치</Logo>
+                <h1 onClick={onProducts}>Products</h1>
+                <h1 onClick={onMyPage}>MyPage</h1>
+            </HeaderLeft>
             <HeaderRight>
                 <Btn onClick={onLoginbtn}>로그인</Btn>
                 <Btn onClick={onJoinbtn}>회원가입</Btn>

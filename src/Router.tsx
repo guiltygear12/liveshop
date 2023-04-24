@@ -5,6 +5,7 @@ import NotFound from "./components/NotFound";
 import Products from "./Products/Products";
 import Login from "./Form/Login";
 import Register from "./Form/Register";
+import MyPage from "./MyPage/MyPage";
 
 const router = createBrowserRouter([
     {
@@ -21,7 +22,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "MyPage",
-                element: <Home />,
+                element: <MyPage />,
             },
             {
                 path: "Login",

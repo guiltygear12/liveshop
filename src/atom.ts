@@ -25,7 +25,7 @@ export interface IRegister {
     phone: string;
 }
 export interface IProducts {
-    id: 1;
+    id: number;
     title: string;
     price: number;
     category:
@@ -41,5 +41,9 @@ export interface IToken {
 }
 export const checkToken = atom<IToken[]>({
     key: "token",
+    default: [],
+});
+export const productsState = atom<IProducts[]>({
+    key: "products",
     default: [],
 });
