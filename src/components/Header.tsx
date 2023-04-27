@@ -1,12 +1,13 @@
 import { useNavigate } from "react-router-dom";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { checkToken } from "../atom";
 
 const HeaderWrapper = styled.header`
     width: 100%;
     max-width: 1440px;
-    height: 80px;
+    height: fit-content;
     margin: 0 auto;
-    border: 1px solid tomato;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -15,13 +16,16 @@ const HeaderWrapper = styled.header`
     z-index: 100;
     top: 0;
     left: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transform: translateX(-50%);
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.6);
+    @media (max-width: 769px) {
+        flex-direction: column;
+    }
 `;
 const Logo = styled.h1`
-    width: 120px;
+    font-family: "LINESeedKR-Bd";
     height: 60px;
-    border: 1px solid black;
     font-size: 24px;
     display: flex;
     justify-content: center;
@@ -43,10 +47,11 @@ const Btn = styled.button`
     border: none;
     border-radius: 8px;
     background-color: ${(props) => props.theme.boxColor};
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1), 4px 4px 4px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
     cursor: pointer;
 `;
 function Header() {
+    const [token, setToken] = useRecoilState(checkToken);
     const navigate = useNavigate();
     const onLoginbtn = () => {
         navigate("/Login");
@@ -58,22 +63,37 @@ function Header() {
         navigate("/Products");
     };
     const onMyPage = () => {
-        navigate("/MyPage");
+        navigate("/MyPage/userInfo");
+    };
+    const onCart = () => {
+        navigate("/MyPage/Cart");
     };
     const onHome = () => {
         navigate("/");
     };
+    const onLogout = () => {
+        localStorage.setItem("token", "");
+        setToken((token) => []);
+    };
     return (
         <HeaderWrapper>
             <HeaderLeft>
-                <Logo onClick={onHome}>로고 위치</Logo>
-                <h1 onClick={onProducts}>Products</h1>
-                <h1 onClick={onMyPage}>MyPage</h1>
+                <Logo onClick={onHome}>LIVE</Logo>
+                <h2 onClick={onProducts}>Products</h2>
+                <h2 onClick={onProducts}>Notice</h2>
             </HeaderLeft>
-            <HeaderRight>
-                <Btn onClick={onLoginbtn}>로그인</Btn>
-                <Btn onClick={onJoinbtn}>회원가입</Btn>
-            </HeaderRight>
+            {token.toString().length === 0 ? (
+                <HeaderRight>
+                    <Btn onClick={onLoginbtn}>Log in</Btn>
+                    <Btn onClick={onJoinbtn}>Join</Btn>
+                </HeaderRight>
+            ) : (
+                <HeaderRight>
+                    <Btn onClick={onMyPage}>My Page</Btn>
+                    <Btn onClick={onCart}>Cart</Btn>
+                    <Btn onClick={onLogout}>Log Out</Btn>
+                </HeaderRight>
+            )}
         </HeaderWrapper>
     );
 }

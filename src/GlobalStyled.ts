@@ -82,8 +82,11 @@ a {
   text-decoration:none;
   color:inherit;
 }
+button{
+  font-family: 'LINESeedKR-Rg';
+}
 `;
-export const Container = styled.div`
+export const Container = styled.section`
     width: 100%;
     height: fit-content;
     border: 4px solid crimson;

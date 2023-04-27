@@ -1,4 +1,4 @@
-import { atom } from "recoil";
+import { atom, selector } from "recoil";
 
 export interface ILogin {
     username: string;
@@ -35,6 +35,13 @@ export interface IProducts {
         | "women's clothing";
     description: string;
     image: string;
+    rating: {
+        rate: number;
+        count: number;
+    };
+}
+export interface ICart extends IProducts {
+    count: number;
 }
 export interface IToken {
     token: string;
@@ -43,7 +50,41 @@ export const checkToken = atom<IToken[]>({
     key: "token",
     default: [],
 });
+export const likelistState = atom<IProducts[]>({
+    key: "likelist",
+    default: [],
+});
+export const cartState = atom<ICart[]>({
+    key: "cart",
+    default: [],
+});
 export const productsState = atom<IProducts[]>({
     key: "products",
     default: [],
+});
+
+// SELECTOR
+export const totalPriceSelector = selector({
+    key: "totalPrice",
+    get: ({ get }) => {
+        const cart = get(cartState);
+        return cart.reduce((total, item) => total + item.price * item.count, 0);
+    },
+});
+
+export const productsSelector = selector({
+    key: "productsSelector",
+    get: ({ get }) => {
+        const products = get(productsState);
+        return [
+            products.filter((products) => products.category === "electronics"),
+            products.filter((products) => products.category === "jewelery"),
+            products.filter(
+                (products) => products.category === "men's clothing"
+            ),
+            products.filter(
+                (products) => products.category === "women's clothing"
+            ),
+        ];
+    },
 });
