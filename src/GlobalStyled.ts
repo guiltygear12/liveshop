@@ -87,14 +87,16 @@ button{
 }
 `;
 export const Container = styled.section`
+    min-height: 100vh;
+    height: fit-content;
     width: 100%;
     height: fit-content;
-    border: 4px solid crimson;
     background-color: ${(props) => props.theme.bgColor};
+    color: ${(props) => props.theme.textColor};
 `;
 export const Wrapper = styled.div`
-    border: 1px solid crimson;
     max-width: 1440px;
+    min-height: 100vh;
     margin: 0 auto;
     width: 100%;
     height: 100%;

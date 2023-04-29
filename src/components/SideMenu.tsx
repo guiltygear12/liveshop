@@ -1,16 +1,64 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { useRecoilState } from "recoil";
+import { DarkModeState } from "../atom";
 
+const Circle = styled(motion.div)`
+    width: 80%;
+    height: 80%;
+    border-radius: 80%;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
+const ThemeBtn = styled(motion.div)`
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+    :nth-of-type(1) {
+        ${Circle} {
+            background-color: teal;
+        }
+    }
+    :nth-of-type(2) {
+        ${Circle} {
+            background-color: tomato;
+        }
+    }
+`;
+const ThemeBtnWrapper = styled(motion.div)`
+    padding: 4px;
+    border-radius: 40px;
+    display: flex;
+    gap: 16px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+`;
+const Theme = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+`;
 const SideMenuWrapper = styled.aside`
+    background-color: ${(props) => props.theme.boxColor};
+    color: ${(props) => props.theme.textColor};
+    border: 1px dashed ${(props) => props.theme.shadowColor};
     height: 80vh;
     width: 100%;
     max-width: 300px;
-    border: 1px solid black;
     position: fixed;
     top: 80px;
     right: -300px;
-    padding: 80px 8px 0;
+    padding: 8px;
     transition: all 0.3s;
     z-index: 10;
     &.active {
@@ -20,18 +68,18 @@ const SideMenuWrapper = styled.aside`
 const SideMenuContainer = styled.ul`
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 24px;
 `;
 const SubMenu = styled(motion.li)``;
 const SubMenuContainer = styled(motion.ul)`
-    border: 1px solid crimson;
     flex-direction: column;
     gap: 8px;
 `;
 const MainMenu = styled.li`
     cursor: pointer;
-    font-size: 18px;
+    font-size: 16px;
     transition: all 0.3s;
+    border-bottom: 1px dashed ${(props) => props.theme.textColor};
     ul {
         display: none;
     }
@@ -39,6 +87,7 @@ const MainMenu = styled.li`
         font-size: 24px;
         & ul {
             display: block;
+            background-color: ${(props) => props.theme.bgColor};
             & li {
                 font-size: 18px;
             }
@@ -46,9 +95,9 @@ const MainMenu = styled.li`
     }
 `;
 const SideMenuToggle = styled.div`
-    width: 40px;
-    height: 40px;
-    border: 1px solid black;
+    padding: 4px;
+    width: 30px;
+    height: 30px;
     position: absolute;
     top: 80px;
     left: -40px;
@@ -56,7 +105,7 @@ const SideMenuToggle = styled.div`
         position: absolute;
         width: 100%;
         height: 3px;
-        background-color: #111;
+        background-color: ${(props) => props.theme.textColor};
         transition: all 0.3s;
         transform-origin: center center;
     }
@@ -128,12 +177,36 @@ const SubMenuItemVariants = {
         },
     },
 };
+
 function SideMenu() {
-    const [showing, setShowing] = useState(false);
+    const [showing, setShowing] = useState(true);
     const [menuIndex, setMenuIndex] = useState(0);
+    const [DarkMode, setDarkMode] = useRecoilState(DarkModeState);
+    const navigate = useNavigate();
+    const onDarkMode = () => {
+        setDarkMode((prev) => !prev);
+    };
     return (
         <SideMenuWrapper className={showing === true ? "active" : ""}>
-            <h1>메뉴임</h1>
+            <Theme>
+                <h3>DarkTheme</h3>
+                <ThemeBtnWrapper>
+                    <ThemeBtn>
+                        {DarkMode ? (
+                            <Circle layoutId="DarkModeBtn" onClick={onDarkMode}>
+                                ON
+                            </Circle>
+                        ) : null}
+                    </ThemeBtn>
+                    <ThemeBtn>
+                        {!DarkMode ? (
+                            <Circle layoutId="DarkModeBtn" onClick={onDarkMode}>
+                                OFF
+                            </Circle>
+                        ) : null}
+                    </ThemeBtn>
+                </ThemeBtnWrapper>
+            </Theme>
             <SideMenuContainer>
                 <MainMenu
                     className={menuIndex === 1 ? "active" : ""}
@@ -148,16 +221,34 @@ function SideMenu() {
                                 animate="visible"
                                 exit="leaving"
                             >
-                                <SubMenu variants={SubMenuItemVariants}>
+                                <SubMenu
+                                    variants={SubMenuItemVariants}
+                                    onClick={() => navigate("/Products/0")}
+                                >
+                                    전체상품
+                                </SubMenu>
+                                <SubMenu
+                                    variants={SubMenuItemVariants}
+                                    onClick={() => navigate("/Products/1")}
+                                >
                                     전자제품
                                 </SubMenu>
-                                <SubMenu variants={SubMenuItemVariants}>
+                                <SubMenu
+                                    variants={SubMenuItemVariants}
+                                    onClick={() => navigate("/Products/2")}
+                                >
                                     악세서리
                                 </SubMenu>
-                                <SubMenu variants={SubMenuItemVariants}>
+                                <SubMenu
+                                    variants={SubMenuItemVariants}
+                                    onClick={() => navigate("/Products/3")}
+                                >
                                     남성의류
                                 </SubMenu>
-                                <SubMenu variants={SubMenuItemVariants}>
+                                <SubMenu
+                                    variants={SubMenuItemVariants}
+                                    onClick={() => navigate("/Products/4")}
+                                >
                                     여성의류
                                 </SubMenu>
                             </SubMenuContainer>
@@ -177,13 +268,22 @@ function SideMenu() {
                                 animate="visible"
                                 exit="leaving"
                             >
-                                <SubMenu variants={SubMenuItemVariants}>
+                                <SubMenu
+                                    variants={SubMenuItemVariants}
+                                    onClick={() => navigate("/MyPage/userInfo")}
+                                >
                                     내 정보
                                 </SubMenu>
-                                <SubMenu variants={SubMenuItemVariants}>
+                                <SubMenu
+                                    variants={SubMenuItemVariants}
+                                    onClick={() => navigate("/MyPage/LikeList")}
+                                >
                                     찜 목록
                                 </SubMenu>
-                                <SubMenu variants={SubMenuItemVariants}>
+                                <SubMenu
+                                    variants={SubMenuItemVariants}
+                                    onClick={() => navigate("/MyPage/Cart")}
+                                >
                                     장바구니
                                 </SubMenu>
                             </SubMenuContainer>
@@ -203,14 +303,17 @@ function SideMenu() {
                                 animate="visible"
                                 exit="leaving"
                             >
-                                <SubMenu variants={SubMenuItemVariants}>
+                                <SubMenu
+                                    variants={SubMenuItemVariants}
+                                    onClick={() => navigate("/Board/Notice")}
+                                >
                                     공지사항
                                 </SubMenu>
-                                <SubMenu variants={SubMenuItemVariants}>
-                                    FAQ
-                                </SubMenu>
-                                <SubMenu variants={SubMenuItemVariants}>
-                                    1:1문의
+                                <SubMenu
+                                    variants={SubMenuItemVariants}
+                                    onClick={() => navigate("/Board/EventPage")}
+                                >
+                                    이벤트
                                 </SubMenu>
                             </SubMenuContainer>
                         ) : null}

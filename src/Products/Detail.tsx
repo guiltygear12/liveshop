@@ -8,6 +8,7 @@ import { fetchAllProducts } from "../Api";
 
 const DetailWrapper = styled(Wrapper)`
     padding-top: 160px;
+    height: fit-content;
 `;
 const DetailButton = styled.div`
     display: flex;
@@ -42,7 +43,8 @@ const Detail = styled.div`
     display: flex;
     flex-direction: column;
     gap: 24px;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 4px ${(props) => props.theme.shadowColor};
+    background-color: ${(props) => props.theme.boxColor};
 `;
 const Thumbnail = styled.div`
     flex: 2;
@@ -50,7 +52,8 @@ const Thumbnail = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+    background-color: #fff;
+    box-shadow: 0 0 4px ${(props) => props.theme.shadowColor};
     img {
         height: 100%;
         transform: scale(0.8);
@@ -61,6 +64,11 @@ const Thumbnail = styled.div`
             transform: scale(0.9);
         }
     }
+    @media (max-width: 1024px) {
+        img {
+            width: 100%;
+        }
+    }
 `;
 const DetailTop = styled.div`
     width: 100%;
@@ -69,6 +77,10 @@ const DetailTop = styled.div`
     padding: 16px;
     display: flex;
     justify-content: space-between;
+    @media (max-width: 1024px) {
+        height: fit-content;
+        flex-direction: column;
+    }
 `;
 
 const DetailBottom = styled.div`
@@ -76,7 +88,7 @@ const DetailBottom = styled.div`
     width: 100%;
     display: flex;
     justify-content: center;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 4px ${(props) => props.theme.shadowColor};
 `;
 function ProductDetail() {
     const { itemId } = useParams();
@@ -102,7 +114,6 @@ function ProductDetail() {
     const addCart = () => {
         if (item != undefined) {
             const index = cart.findIndex((product) => product.id === item.id);
-
             if (index === -1) {
                 setCart([...cart, { ...item, count: 1 }]);
             } else {

@@ -47,6 +47,7 @@ const Btn = styled.button`
     border: none;
     border-radius: 8px;
     background-color: ${(props) => props.theme.boxColor};
+    color: ${(props) => props.theme.textColor};
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
     cursor: pointer;
 `;
@@ -60,7 +61,7 @@ function Header() {
         navigate("/Register");
     };
     const onProducts = () => {
-        navigate("/Products");
+        navigate("/Products/0");
     };
     const onMyPage = () => {
         navigate("/MyPage/userInfo");
@@ -71,6 +72,9 @@ function Header() {
     const onHome = () => {
         navigate("/");
     };
+    const onBoard = () => {
+        navigate("/Board/Notice");
+    };
     const onLogout = () => {
         localStorage.setItem("token", "");
         setToken((token) => []);
@@ -80,7 +84,7 @@ function Header() {
             <HeaderLeft>
                 <Logo onClick={onHome}>LIVE</Logo>
                 <h2 onClick={onProducts}>Products</h2>
-                <h2 onClick={onProducts}>Notice</h2>
+                <h2 onClick={onBoard}>Notice</h2>
             </HeaderLeft>
             {token.toString().length === 0 ? (
                 <HeaderRight>

@@ -27,6 +27,7 @@ const ItemImage = styled.div`
     height: 120px;
     overflow: hidden;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
     padding: 8px;
     border-radius: 8px;
     display: flex;
@@ -47,6 +48,7 @@ const Item = styled.div`
     justify-content: space-between;
     border-radius: 24px;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+    background-color: ${(props) => props.theme.boxColor};
     @media (max-width: 769px) {
         flex-direction: column;
         gap: 8px;

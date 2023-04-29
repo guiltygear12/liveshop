@@ -9,16 +9,18 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 const ProductTopArea = styled.div`
     width: 100%;
     height: 400px;
-    background-color: #ccc;
+    background-color: ${(props) => props.theme.boxColor};
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 24px;
+    border-radius: 16px;
 `;
 const Title = styled.h2`
     font-size: 36px;
     font-family: "LINESeedKR-Bd";
+    color: ${(props) => props.theme.textColor};
 `;
 const Category = styled.div`
     display: flex;
@@ -34,7 +36,7 @@ const CategoryItem = styled.div`
     transition: all 0.3s;
     &.active {
         font-family: "LINESeedKR-Rg";
-        border: 3px solid tomato;
+        border: 3px solid ${(props) => props.theme.pointColor2};
         font-size: 18px;
     }
 `;
@@ -60,7 +62,8 @@ const ProductItem = styled.div`
     justify-content: space-around;
     align-items: center;
     border-radius: 16px;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 4px ${(props) => props.theme.shadowColor};
+    background-color: ${(props) => props.theme.boxColor};
     div {
         width: 80%;
         height: 300px;
@@ -69,7 +72,8 @@ const ProductItem = styled.div`
         justify-content: center;
         align-items: center;
         border-radius: 16px;
-        box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 0 4px ${(props) => props.theme.shadowColor};
+        background-color: #ffffff;
         img {
             width: 100%;
             transform: scale(0.75);
@@ -93,10 +97,11 @@ const ProductItem = styled.div`
 `;
 
 function Products() {
+    const { CategoryId } = useParams();
+    const navigate = useNavigate();
     const [category, setCategory] = useState(0);
     const [products, setProducts] = useRecoilState(productsState);
     const selector = useRecoilValue(productsSelector);
-    console.log(products);
     const loadProducts = async () => {
         setProducts(await fetchAllProducts());
     };
@@ -104,6 +109,11 @@ function Products() {
     useEffect(() => {
         loadProducts();
     }, []);
+    useEffect(() => {
+        if (CategoryId != undefined) {
+            setCategory(+CategoryId);
+        }
+    }, [CategoryId]);
     return (
         <Container>
             <Wrapper>
@@ -113,7 +123,7 @@ function Products() {
                         <CategoryItem
                             className={category === 0 ? "active" : ""}
                             onClick={() => {
-                                setCategory(0);
+                                navigate("/Products/0");
                             }}
                         >
                             All
@@ -121,7 +131,7 @@ function Products() {
                         <CategoryItem
                             className={category === 1 ? "active" : ""}
                             onClick={() => {
-                                setCategory(1);
+                                navigate("/Products/1");
                             }}
                         >
                             Electronics
@@ -129,7 +139,7 @@ function Products() {
                         <CategoryItem
                             className={category === 2 ? "active" : ""}
                             onClick={() => {
-                                setCategory(2);
+                                navigate("/Products/2");
                             }}
                         >
                             Jewelery
@@ -137,7 +147,7 @@ function Products() {
                         <CategoryItem
                             className={category === 3 ? "active" : ""}
                             onClick={() => {
-                                setCategory(3);
+                                navigate("/Products/3");
                             }}
                         >
                             Men's Clothing
@@ -145,7 +155,7 @@ function Products() {
                         <CategoryItem
                             className={category === 4 ? "active" : ""}
                             onClick={() => {
-                                setCategory(4);
+                                navigate("/Products/4");
                             }}
                         >
                             Women's Clothing

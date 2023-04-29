@@ -16,3 +16,9 @@ export async function fetchAllProducts() {
     return fetch("https://fakestoreapi.com/products").then((res) => res.json());
     // .then((json) => console.log(json));
 }
+export async function fetchAllNotice() {
+    return fetch("https://jsonplaceholder.typicode.com/posts").then((res) =>
+        res.json().then((json) => [...json].reverse())
+    );
+    // .then((json) => console.log(json));
+}

@@ -16,9 +16,12 @@ const ListBottom = styled.div`
         font-size: 18px;
         padding: 8px 32px;
         transition: all 0.3s;
-        box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+        color: ${(props) => props.theme.textColor};
+        background-color: ${(props) => props.theme.boxColor};
+        box-shadow: 0 0 4px ${(props) => props.theme.shadowColor};
         :hover {
-            box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 0 16px ${(props) => props.theme.pointColor2};
         }
     }
 `;
@@ -67,6 +70,7 @@ const ItemImage = styled.div`
     height: 120px;
     overflow: hidden;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
     padding: 8px;
     border-radius: 8px;
     display: flex;
@@ -87,6 +91,7 @@ const Item = styled.div`
     justify-content: space-between;
     border-radius: 24px;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+    background-color: ${(props) => props.theme.boxColor};
     @media (max-width: 769px) {
         flex-direction: column;
         gap: 8px;

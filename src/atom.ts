@@ -1,5 +1,6 @@
 import { atom, selector } from "recoil";
 
+// interface
 export interface ILogin {
     username: string;
     password: string;
@@ -46,6 +47,17 @@ export interface ICart extends IProducts {
 export interface IToken {
     token: string;
 }
+export interface INotice {
+    userId: number;
+    id: number;
+    title: string;
+    body: string;
+}
+// atom
+export const DarkModeState = atom({
+    key: "darkmode",
+    default: true,
+});
 export const checkToken = atom<IToken[]>({
     key: "token",
     default: [],
@@ -62,8 +74,21 @@ export const productsState = atom<IProducts[]>({
     key: "products",
     default: [],
 });
-
+export const noticeState = atom<INotice[]>({
+    key: "notice",
+    default: [],
+});
 // SELECTOR
+export const bestSellersState = selector({
+    key: "bestSeller",
+    get: ({ get }) => {
+        const products = get(productsState);
+        return products
+            .slice()
+            .sort((a, b) => b.rating.count - a.rating.count)
+            .slice(0, 3);
+    },
+});
 export const totalPriceSelector = selector({
     key: "totalPrice",
     get: ({ get }) => {

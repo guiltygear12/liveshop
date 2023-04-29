@@ -14,7 +14,7 @@ const FormWrapper = styled.section`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #fcfcfc;
+    background-color: ${(props) => props.theme.bgColor};
 `;
 const LoginForm = styled.form`
     width: 100%;
@@ -26,9 +26,9 @@ const LoginForm = styled.form`
     gap: 8px;
     align-items: center;
     font-family: "LINESeedKR-Bd";
-    background-color: #fff;
+    background-color: ${(props) => props.theme.boxColor};
     border-radius: 16px;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3), 2px 4px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 16px ${(props) => props.theme.pointColor2};
 `;
 const FormTitle = styled.h3`
     font-size: 24px;
@@ -69,12 +69,19 @@ const LoginBtn = styled.button`
     font-size: 12px;
     border: none;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 4px ${(props) => props.theme.pointColor2};
     cursor: pointer;
 `;
 function Login() {
+    const [errorMsg, setErrorMsg] = useState("");
     const navigate = useNavigate();
-    const { register, handleSubmit, setError, watch } = useForm<ILogin>();
+    const {
+        register,
+        handleSubmit,
+        setError,
+        watch,
+        formState: { errors },
+    } = useForm<ILogin>();
     const [token, setToken] = useRecoilState(checkToken);
     const loginMutation = useMutation(
         async (data: ILogin) => {
@@ -98,6 +105,7 @@ function Login() {
                 navigate("/");
             },
             onError: () => {
+                setErrorMsg("등록되지않은 이메일 혹은 잘못된 비밀번호입니다.");
                 console.log("실패임 수고");
             },
         }
@@ -114,8 +122,7 @@ function Login() {
             <FormWrapper>
                 <LoginForm onSubmit={handleSubmit(onValid)}>
                     <FormTitle>로그인</FormTitle>
-                    <p>{token.toString()}</p>
-                    <FormErrorText>에러남 다시입력ㄱㄱ</FormErrorText>
+                    <FormErrorText>{errorMsg}</FormErrorText>
                     <FormItem>
                         <FormInput
                             {...register("username", { required: true })}

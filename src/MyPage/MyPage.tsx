@@ -1,23 +1,24 @@
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 import { Container } from "../GlobalStyled";
 import styled from "styled-components";
-import { useState } from "react";
 
 const MyPageContainer = styled(Container)`
     height: fit-content;
     padding: 100px 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    min-height: 100vh;
     & > div {
-        box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+        margin: 0 auto;
+        box-shadow: 0 0 8px ${(props) => props.theme.pointColor2};
         width: 100%;
         max-width: 1440px;
     }
 `;
 const MyPageTapMenu = styled.div`
     display: flex;
+    gap: 4px;
     button {
+        background-color: ${(props) => props.theme.boxColor};
+        color: ${(props) => props.theme.textColor};
         flex: 1;
         padding: 8px 16px;
         font-size: 18px;

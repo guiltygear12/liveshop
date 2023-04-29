@@ -46,7 +46,7 @@ const ProfileImage = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        box-shadow: 2px 2px 8px ${(props) => props.theme.pointColor2};
         img {
             width: 500px;
         }

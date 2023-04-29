@@ -23,7 +23,7 @@ const FormWrapper = styled.section`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #fcfcfc;
+    background-color: ${(props) => props.theme.bgColor};
 `;
 const RegisterForm = styled.form`
     margin-top: 80px;
@@ -36,12 +36,13 @@ const RegisterForm = styled.form`
     gap: 8px;
     align-items: center;
     font-family: "LINESeedKR-Bd";
-    background-color: #fff;
+    background-color: ${(props) => props.theme.boxColor};
     border-radius: 16px;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3), 2px 4px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 8px ${(props) => props.theme.pointColor2};
 `;
 const FormTitle = styled.h3`
     font-size: 24px;
+    color: ${(props) => props.theme.textColor};
 `;
 const FormItem = styled.div`
     width: 80%;
@@ -51,23 +52,24 @@ const FormItem = styled.div`
     gap: 8px;
     justify-content: center;
     align-items: center;
-    border-bottom: 1px solid #aaa;
+    border-bottom: 1px dashed #aaa;
     flex-wrap: wrap;
 `;
 
 const FormLabel = styled.label`
     flex: 1;
     text-align: right;
-    font-size: 14px;
+    font-size: 12px;
     font-family: "LINESeedKR-Th";
+    color: ${(props) => props.theme.textColor};
 `;
 const FormInput = styled.input`
     flex: 3;
-    border: none;
+    border: 1px solid ${(props) => props.theme.pointColor1};
     outline: none;
     height: 100%;
     :focus {
-        box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 0 4px ${(props) => props.theme.pointColor2};
     }
 `;
 const FormErrorText = styled.p`
@@ -76,7 +78,14 @@ const FormErrorText = styled.p`
     font-weight: 100;
     font-size: 14px;
 `;
-const FormBtn = styled.button``;
+const FormBtn = styled.button`
+    padding: 8px 24px;
+    font-size: 12px;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px ${(props) => props.theme.pointColor2};
+    cursor: pointer;
+`;
 
 function Register() {
     const navigate = useNavigate();
