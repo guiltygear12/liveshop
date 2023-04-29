@@ -11,12 +11,14 @@
 -   react-router-dom (6.4)
 -   styled-components
 -   recoil
+-   Swiper
 -   React-Query (23.04.20 추가)
 -   React-Hook-Form (23.04.20 추가)
+-   react-js-pagination(23.04.29 추가)
 
 ### 참고
 
--   배보 링크: https://guiltygear12.github.io/ (갱신일: 2023.04.18)
+-   배보 링크: https://guiltygear12.github.io/ (갱신일: 2023.04.30)
 -   사용된 Api: https://fakestoreapi.com/
 -   사용된 Api 문서: https://fakestoreapi.com/docs
 -   Api 테스트 아이디/비밀번호 : "mor_2314" / "83r5^\_"
@@ -33,6 +35,11 @@
     > 상품정보 / 장바구니담기
 
 ### 개발일지
+
+#### 2023-04-29~ 04-30
+
+> 게시판및 전반적인 디자인수정
+> 1.0 버전완성
 
 #### 2023-04-24 ~ 04-27
 
