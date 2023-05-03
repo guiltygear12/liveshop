@@ -18,7 +18,7 @@
 
 ### 참고
 
--   포포 링크: https://guiltygear12.github.io/ (갱신일: 2023.04.30)
+-   배포 링크: https://guiltygear12.github.io/ (갱신일: 2023.04.30)
 -   사용된 Api: https://fakestoreapi.com/
 -   사용된 Api 문서: https://fakestoreapi.com/docs
 -   Api 테스트 아이디/비밀번호 : "mor_2314" / "83r5^\_"
